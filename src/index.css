@@ -573,59 +573,75 @@ h1, h2, h3 {
   animation: fade-in-char 0.5s ease forwards;
 }
 .card-container {
+  width: 120px;
+  height: 160px;
   perspective: 1000px;
-  width: 160px;
-  height: 220px;
-  transition: all 0.6s ease;
   cursor: pointer;
-  animation: floatPaper 6s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.card-container.enlarged {
+  transform: scale(1.2);
 }
 
 .card-inner {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
-  transition: transform 0.8s;
+  text-align: center;
   transform-style: preserve-3d;
+  transition: transform 0.6s;
 }
 
 .card-container.flipped .card-inner {
   transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(255, 192, 203, 0.3);
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.card-front {
-  background: #ffe4ec;
-  color: #b83280;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
-.card-back {
-  background: #1a1a1a;
-  color: #fcd5ce;
-  transform: rotateY(180deg);
-  font-size: 1rem;
-  text-align: center;
-  white-space: pre-line;
+.card-front {
+  background: #ec4899; /* pink-500 */
+  color: white;
 }
 
-.card-container.enlarged {
-  width: 300px;
-  height: 400px;
-  z-index: 50;
+.card-back {
+  background: #1f2937; /* gray-800 */
+  color: #f9a8d4; /* pink-300 */
+  transform: rotateY(180deg);
+  font-size: 0.875rem;
+  overflow-y: auto;
 }
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .card-container {
+    width: 100px;
+    height: 140px;
+  }
+
+  .card-back {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .card-front {
+    font-size: 0.875rem;
+  }
+}
+
 @keyframes floatPaper {
   0% {
     transform: translateY(0px) rotateZ(0deg);
