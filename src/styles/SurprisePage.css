@@ -1,0 +1,54 @@
+/* SurprisePage.css */
+
+.surprise-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .full-screen-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .message-overlay {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .romantic-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .birthday-message {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 4rem;
+    z-index: 2;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
