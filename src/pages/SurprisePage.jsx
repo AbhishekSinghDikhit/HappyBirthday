@@ -40,11 +40,11 @@ const SurprisePage = () => {
     }
   
     if (stage === 'fireworks') {
-      timers.push(setTimeout(() => setVideoFadeOut(true), 4000));
+      timers.push(setTimeout(() => setVideoFadeOut(true), 6000));
       timers.push(setTimeout(() => {
         setStage('message');
         setVideoFadeOut(false);
-      }, 5000));
+      }, 7000));
     }
   
     if (stage === 'message') {
@@ -132,6 +132,7 @@ const SurprisePage = () => {
           }`}
         >
           <source src="/videos/ezyZip.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       )}
 
