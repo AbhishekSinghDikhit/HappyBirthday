@@ -19,18 +19,26 @@ const SurprisePage = () => {
   const [showCards, setShowCards] = useState(false);
   const [selectedPoem, setSelectedPoem] = useState('');
   const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+  const [showNextSurprise, setShowNextSurprise] = useState(false);
+  const [showPeacockFeather, setShowPeacockFeather] = useState(false);
+  const [showRadheText, setShowRadheText] = useState(false);
+
 
   useEffect(() => {
     const timers = [];
-
+  
     if (stage === 'countdown') {
       if (count > 0) {
         timers.push(setTimeout(() => setCount(prev => prev - 1), 1000));
       } else {
-        setStage('fireworks');
+        setStage('get-ready');
       }
     }
-
+  
+    if (stage === 'get-ready') {
+      timers.push(setTimeout(() => setStage('fireworks'), 2000));
+    }
+  
     if (stage === 'fireworks') {
       timers.push(setTimeout(() => setVideoFadeOut(true), 4000));
       timers.push(setTimeout(() => {
@@ -38,14 +46,14 @@ const SurprisePage = () => {
         setVideoFadeOut(false);
       }, 5000));
     }
-
+  
     if (stage === 'message') {
       timers.push(setTimeout(() => {
         setStage('birthday');
         setShowMoon(true);
       }, 5000));
     }
-
+  
     if (stage === 'birthday') {
       if (!showMoon) {
         setShowMoon(true);
@@ -56,7 +64,7 @@ const SurprisePage = () => {
         timers.push(setTimeout(() => setShowGiftButton(true), 10800));
       }
     }
-
+  
     return () => timers.forEach(clearTimeout);
   }, [stage, count, showMoon]);
 
@@ -95,6 +103,15 @@ const SurprisePage = () => {
         <div className="absolute inset-0 flex items-center justify-center bg-black transition-opacity duration-500">
           <h1 className="text-6xl md:text-9xl font-extrabold animate-pulse">
             {count > 0 ? count : 'Get Ready!'}
+          </h1>
+        </div>
+      )}
+
+      {/* Get Ready */}
+      {stage === 'get-ready' && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black transition-opacity duration-500">
+          <h1 className="text-5xl md:text-8xl font-extrabold text-pink-400 animate-bounce">
+            Get Ready!
           </h1>
         </div>
       )}
@@ -158,23 +175,45 @@ const SurprisePage = () => {
           {/* Text and Sweet Message */}
           {showBirthdayText && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-4 text-center bg-black/40">
-              <h1 className="text-4xl md:text-6xl font-bold text-pink-400 animate-float-slow">
-                {renderAnimatedText('Happy Birthday 🎉')}
-              </h1>
 
+              {/* 🎉 Party Poppers & Happy Birthday */}
+              <div className="flex items-center gap-4 animate-float-slow">
+                <span className="text-4xl md:text-5xl">🎉</span>
+                <h1 className="text-4xl md:text-6xl font-bold text-pink-400">
+                  {renderAnimatedText('Happy Birthday')}
+                </h1>
+                <span className="text-4xl md:text-5xl">🎉</span>
+              </div>
+
+              {/* 🎊 Confetti */}
+              <div className="absolute inset-0 pointer-events-none z-20">
+                {[...Array(30)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="confetti"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 3}s`,
+                      backgroundColor: `hsl(${Math.random() * 360}, 70%, 70%)`,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* 💌 Sweet Message */}
               {showSweetMessage && (
-                <>
+                <div className="flex flex-col items-center gap-2 mt-4">
                   {renderAnimatedMessage('You deserve all the happiness this universe can offer.')}
                   {renderAnimatedMessage('Keep shining like the moon,🌙💕')}
                   {renderAnimatedMessage('Mahadev Bless you 🔱❤️')}
-                </>
+                </div>
               )}
 
-              {/* Gift Button */}
+              {/* 🎁 Gift Button */}
               {showGiftButton && !showCards && (
                 <button
                   onClick={() => setShowCards(true)}
-                  className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-full text-lg hover:bg-pink-600 transition-all duration-300"
+                  className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-full text-lg hover:bg-pink-600 transition-all duration-300 z-30"
                 >
                   Click here for your Gift 🎁
                 </button>
@@ -183,30 +222,49 @@ const SurprisePage = () => {
           )}
 
             {/* Poetry Cards */}
-            {showCards && (
-                  <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-4 gap-6 text-center z-50">
-                    <h2 className="text-2xl font-bold text-pink-400 mb-4">Choose a Card ✨</h2>
+              {showCards && (
+              <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-4 gap-6 text-center z-50">
+                <h2 className="text-2xl font-bold text-pink-400 mb-4">Choose a Card ✨</h2>
 
-                    <div className="flex flex-wrap justify-center gap-6">
-                      {poems.map((poem, idx) => {
-                        const isSelected = selectedCardIndex === idx;
+                <div className="flex flex-wrap justify-center gap-6">
+                  {poems.map((poem, idx) => {
+                    const isSelected = selectedCardIndex === idx;
 
-                        return (
-                          <div
-                            key={idx}
-                            className={`card-container ${isSelected ? 'flipped enlarged' : ''}`}
-                            onClick={() => setSelectedCardIndex(idx)}
-                          >
-                            <div className="card-inner">
-                              <div className="card-front">Card {idx + 1}</div>
-                              <div className="card-back whitespace-pre-line text-pink-100">{poem}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                    return (
+                      <div
+                        key={idx}
+                        className={`card-container ${isSelected ? 'flipped enlarged' : ''}`}
+                        onClick={() => setSelectedCardIndex(idx)}
+                      >
+                        <div className="card-inner">
+                          <div className="card-front">Card {idx + 1}</div>
+                          <div className="card-back whitespace-pre-line text-pink-100">{poem}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {selectedCardIndex !== null && (
+                  <button
+                    className="mt-6 px-6 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition"
+                    onClick={() => setSelectedCardIndex(null)}
+                  >
+                    Pick Another Card 💌
+                    
+                  </button>
+                  
                 )}
+                {selectedCardIndex !== null && (
+                  <button
+                    onClick={() => window.location.href = '/radhe'}
+                    className="mt-6 px-6 py-3 bg-green-500 text-white rounded-full text-lg hover:bg-green-600 transition-all"
+                  >
+                    Click here for Next Surprise 💚
+                  </button>
+                )}
+              </div>
+            )}
             </div>
           )}
     </div>
