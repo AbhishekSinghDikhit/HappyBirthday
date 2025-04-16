@@ -29,21 +29,6 @@ h1, h2, h3 {
   100% { filter: drop-shadow(0 0 15px white); }
 }
 
-@keyframes growStem {
-  0% { height: 0px; }
-  100% { height: 150px; }
-}
-
-@keyframes bloomPetals {
-  0% { opacity: 0; transform: scale(0.5); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes fallBlossom {
-  0% { transform: translateY(-50px) rotate(0deg); }
-  100% { transform: translateY(100vh) rotate(360deg); }
-}
-
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -95,66 +80,6 @@ h1, h2, h3 {
   filter: drop-shadow(0 0 10px white);
   animation: glowEffect 2s infinite alternate;
 }
-
-/* Lily Flower */
-.lily {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.lily-stem {
-  width: 4px;
-  height: 0px;
-  background-color: green;
-  animation: growStem 3s ease-out forwards;
-}
-
-.lily-petals {
-  position: relative;
-  margin-top: -10px;
-  opacity: 0;
-  animation: bloomPetals 2s ease-out 3s forwards;
-}
-
-.lily-petal {
-  position: absolute;
-  width: 30px;
-  height: 60px;
-  background: white;
-  border-radius: 50%;
-  transform-origin: bottom;
-  filter: drop-shadow(0 0 10px white);
-}
-
-.lily-petal:nth-child(1) { transform: rotate(-30deg) translateX(-10px); }
-.lily-petal:nth-child(2) { transform: rotate(30deg) translateX(10px); }
-.lily-petal:nth-child(3) { transform: rotate(0deg) translateY(-15px); }
-
-/* Cherry Blossoms */
-.cherry-blossom {
-  position: absolute;
-  top: -50px;
-  width: 20px;
-  height: 20px;
-  background: pink;
-  border-radius: 50%;
-  box-shadow: inset -2px -2px 2px rgba(255, 182, 193, 0.8);
-  animation: fallBlossom 8s linear infinite;
-  opacity: 0.8;
-}
-
-.cherry-blossom:nth-child(odd) { animation-duration: 6s; }
-.cherry-blossom:nth-child(even) { animation-duration: 10s; }
-.cherry-blossom:nth-child(1) { left: 10%; animation-delay: 1s; }
-.cherry-blossom:nth-child(2) { left: 30%; animation-delay: 2s; }
-.cherry-blossom:nth-child(3) { left: 50%; animation-delay: 3s; }
-.cherry-blossom:nth-child(4) { left: 70%; animation-delay: 4s; }
-.cherry-blossom:nth-child(5) { left: 90%; animation-delay: 5s; }
 
 /* Button */
 .button {
@@ -663,7 +588,7 @@ h1, h2, h3 {
 }
 
 .glow-text {
-  text-shadow: 0 0 10px #ff7ce5, 0 0 20px #ff7ce5, 0 0 30px #ff7ce5;
+  text-shadow: 0 0 10px #e082cd, 0 0 20px #ce73b7, 0 0 30px #e182ce;
 }
 
 @keyframes floatPeacock {
@@ -678,4 +603,32 @@ h1, h2, h3 {
 
 .glow-peacock {
   filter: drop-shadow(0 0 10px #00ffd0);
+}
+
+@keyframes fadeInWord {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px #00fff7);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #00fff7);
+  }
+}
+
+.animate-fade-in-slow {
+  animation: fadeInWord 1.5s ease-in-out both;
+}
+
+.glow-flute {
+  animation: glowPulse 3s ease-in-out infinite;
 }

@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Box, Typography } from "@mui/material";
-import teddy from "/images/teddy.png";
-
+import { Button, Box, Typography, TextField } from "@mui/material";
+import teddy from "/images/teddy2.png";
+import monkey from "/images/monkey.png";
 const WelcomePage = () => {
   const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [accessGranted, setAccessGranted] = useState(false);
+  const [accessDenied, setAccessDenied] = useState(false);
+
+  const handleCheckName = () => {
+    if (name.trim().toLowerCase() === "bhavana jain") {
+      setAccessGranted(true);
+      setAccessDenied(false);
+    } else {
+      setAccessDenied(true);
+    }
+  };
 
   return (
     <Box
@@ -22,7 +35,7 @@ const WelcomePage = () => {
         px: 2,
       }}
     >
-      {/* Optional Floating Hearts */}
+      {/* Floating Hearts */}
       {[...Array(10)].map((_, i) => (
         <Box
           key={i}
@@ -40,10 +53,10 @@ const WelcomePage = () => {
         />
       ))}
 
-      {/* Teddy Bear Image */}
+      {/* Character Image */}
       <img
-        src={teddy}
-        alt="Teddy Bear"
+        src={accessGranted ? monkey : teddy}
+        alt="Character"
         style={{
           width: "240px",
           marginBottom: "24px",
@@ -52,7 +65,7 @@ const WelcomePage = () => {
         }}
       />
 
-      {/* Welcome Text */}
+      {/* Greeting */}
       <Typography
         variant="h3"
         sx={{
@@ -65,35 +78,79 @@ const WelcomePage = () => {
           zIndex: 1,
         }}
       >
-        Hello Cutie 🧸
+        {accessGranted ? "Hello bendri 🐒" : "Hello Cutie 🧸"}
       </Typography>
 
-      {/* Button */}
-      <Button
-        onClick={() => navigate("/surprise")}
-        sx={{
-          mt: 4,
-          px: 4,
-          py: 1.5,
-          fontSize: "1.2rem",
-          fontWeight: 600,
-          borderRadius: "50px",
-          color: "#fff",
-          background: "linear-gradient(90deg, #AA60C8, #D69ADE)",
-          boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
-          transition: "all 0.3s ease-in-out",
-          "&:hover": {
-            transform: "scale(1.05)",
-            boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
-            background: "linear-gradient(90deg, #D69ADE, #AA60C8)",
-          },
-          zIndex: 1,
-        }}
-      >
-        Click here for Surprise 💖
-      </Button>
+      {!accessGranted && (
+        <Box sx={{ mt: 4, zIndex: 1 }}>
+          <TextField
+            label="Enter your name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            sx={{
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              mb: 2,
+              width: "260px",
+            }}
+          />
+          <Button
+            onClick={handleCheckName}
+            sx={{
+              px: 4,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: 600,
+              borderRadius: "50px",
+              color: "#fff",
+              background: "linear-gradient(90deg, #AA60C8, #D69ADE)",
+              boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+                boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
+                background: "linear-gradient(90deg, #D69ADE, #AA60C8)",
+              },
+            }}
+          >
+            Unlock Surprise 🔐
+          </Button>
+          {accessDenied && (
+            <Typography sx={{ mt: 2, color: "#e53935", fontWeight: 600 }}>
+              This surprise is not for you 😢
+            </Typography>
+          )}
+        </Box>
+      )}
 
-      {/* Floating Teddy Animation */}
+      {accessGranted && (
+        <Button
+          onClick={() => navigate("/surprise")}
+          sx={{
+            mt: 4,
+            px: 4,
+            py: 1.5,
+            fontSize: "1.2rem",
+            fontWeight: 600,
+            borderRadius: "50px",
+            color: "#fff",
+            background: "linear-gradient(90deg, #AA60C8, #D69ADE)",
+            boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
+            transition: "all 0.3s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.05)",
+              boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
+              background: "linear-gradient(90deg, #D69ADE, #AA60C8)",
+            },
+            zIndex: 1,
+          }}
+        >
+          Click here for Surprise 💖
+        </Button>
+      )}
+
+      {/* Floating Animation CSS */}
       <style>
         {`
         @keyframes floatTeddy {

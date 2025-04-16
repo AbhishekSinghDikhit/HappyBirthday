@@ -17,24 +17,40 @@ const SecondSurprise = () => {
 
   return (
     <div className="relative w-screen h-screen bg-gradient-to-b from-black via-indigo-900 to-black text-white flex flex-col items-center justify-center overflow-hidden">
-      {/* Floating glowing feather */}
+      
+      {/* Floating glowing feather (flute+peacock) */}
       {showFeather && (
         <img
           src="/images/flute-peacock.png"
           alt="Peacock Feather"
-          className="absolute w-30 md:w-50 animate-float-peacock glow-peacock opacity-0s"
-          style={{ top: '45%', left: '25%', right:'45%', transform: 'translateX(-50%)' }}
+          className="absolute animate-float-peacock glow-peacock"
+          style={{
+            width: '70%',          // Responsive width
+            maxWidth: '580px',     // Prevent overflow on large screens
+            top: '30%',
+            left: '28%',
+            transform: 'translateX(-50%)',
+          }}
         />
       )}
 
-      {/* Radhe Radhe animated word-by-word */}
+      {/* Radhe Radhe animated text */}
       {showText && (
-        <div className="flex gap-4 mt-40">
+        <div
+          className="flex gap-4 absolute"
+          style={{
+            top: '40%', // position below image
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}
+        >
           {radheWords.map((word, index) => (
             <span
               key={index}
-              className="text-5xl md:text-6xl font-bold text-pink-300 glow-text opacity-0 animate-fade-in-word"
-              style={{ animationDelay: `${index * 0.8}s`}}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-pink-200 glow-text opacity-0 animate-fade-in-word"
+              style={{
+                animationDelay: `${index * 0.8}s`,
+              }}
             >
               {word}
             </span>

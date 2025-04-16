@@ -51,19 +51,23 @@ const SurprisePage = () => {
       timers.push(setTimeout(() => {
         setStage('birthday');
         setShowMoon(true);
-      }, 5000));
-    }
+        setShowBirthdayText(true);
+        setShowBackground(true);
+        setShowSweetMessage(true);
+        setShowGiftButton(true);
+      }, 3000));
+    }    
   
-    if (stage === 'birthday') {
-      if (!showMoon) {
-        setShowMoon(true);
-      } else {
-        timers.push(setTimeout(() => setShowBirthdayText(true), 3000));
-        timers.push(setTimeout(() => setShowBackground(true), 5000));
-        timers.push(setTimeout(() => setShowSweetMessage(true), 7500));
-        timers.push(setTimeout(() => setShowGiftButton(true), 10800));
-      }
-    }
+    // if (stage === 'birthday') {
+    //   if (!showMoon) {
+    //     setShowMoon(true);
+    //   } else {
+    //     timers.push(setTimeout(() => setShowBirthdayText(true), 3000));
+    //     timers.push(setTimeout(() => setShowBackground(true), 5000));
+    //     timers.push(setTimeout(() => setShowSweetMessage(true), 7500));
+    //     timers.push(setTimeout(() => setShowGiftButton(true), 10800));
+    //   }
+    // }
   
     return () => timers.forEach(clearTimeout);
   }, [stage, count, showMoon]);
@@ -122,11 +126,12 @@ const SurprisePage = () => {
           autoPlay
           muted
           playsInline
+          preload="auto"
           className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${
             videoFadeOut ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          <source src="/videos/fireworks.mp4" type="video/mp4" />
+          <source src="/videos/ezyZip.mp4" type="video/mp4" />
         </video>
       )}
 
