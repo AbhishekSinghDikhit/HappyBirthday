@@ -11,7 +11,7 @@ const WelcomePage = () => {
   const [accessDenied, setAccessDenied] = useState(false);
 
   const handleCheckName = () => {
-    if (name.trim().toLowerCase() === "hername") {
+    if (name.trim().toLowerCase() === "bhavana jain") {
       setAccessGranted(true);
       setAccessDenied(false);
     } else {
@@ -78,7 +78,7 @@ const WelcomePage = () => {
           zIndex: 1,
         }}
       >
-        {accessGranted ? "Hello Cutie 🐒" : "Hello Cutie 🧸"}
+        {accessGranted ? "Hello Bendri 🐒" : "Hello Cutie 🧸"}
       </Typography>
 
       {!accessGranted && (
